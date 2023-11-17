@@ -1,13 +1,9 @@
 import asyncio
 from aiogram.types import BotCommand
 import logging
-
 from bot import bot, dp
-
-from handlers.start import start_router
-from handlers.myinfo import myinfo_router
-from handlers.picture import picture_router
-from handlers.shop import shop_router
+from handlers import (start_router, picture_router, myinfo_router,
+                      shop_router, questions_router)
 
 
 async def main():
@@ -16,12 +12,14 @@ async def main():
         BotCommand(command="picture", description="Show picture"),
         BotCommand(command="myinfo", description="My information"),
         BotCommand(command="shop", description="Shop"),
+        BotCommand(command="questions", description="small survey about your car preferences")
     ])
 
     dp.include_router(start_router)
     dp.include_router(myinfo_router)
     dp.include_router(picture_router)
     dp.include_router(shop_router)
+    dp.include_router(questions_router)
 
     await dp.start_polling(bot)
 

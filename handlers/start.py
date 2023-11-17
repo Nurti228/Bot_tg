@@ -1,6 +1,6 @@
 from aiogram import F, Router, types
 from aiogram.filters import Command
-
+from handlers.about_us import about_text
 start_router = Router()
 
 
@@ -11,7 +11,7 @@ async def start(message: types.Message):
             [
                 types.InlineKeyboardButton(
                     text="Our instagram", url="https://www.instagram.com/autobid.kg/"
-                ),
+                )
             ],
             [
                 types.InlineKeyboardButton(
@@ -23,7 +23,8 @@ async def start(message: types.Message):
 
     await message.answer(f"hi {message.from_user.first_name}", reply_markup=kb)
 
-    @start_router.callback_query(F.data == 'About')
-    async def about_us(callback: types.CallbackQuery):
-        await callback.answer()
-        await callback.message.answer('Хотел импортировать текс пока не додумался как и уже поздно позже исправлю')
+
+@start_router.callback_query(F.data == 'About')
+async def about_us(callback: types.CallbackQuery):
+    await callback.answer()
+    await callback.message.answer(about_text)
