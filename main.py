@@ -20,7 +20,7 @@ async def main():
         BotCommand(command="myinfo", description="My information"),
         BotCommand(command="shop", description="Shop"),
         BotCommand(command="questions", description="small survey about your car preferences"),
-        BotCommand(command="show products", description="list of products")
+        BotCommand(command="show_products", description="list of products")
     ])
 
     dp.include_router(start_router)

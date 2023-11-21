@@ -56,7 +56,7 @@ def populate_tables():
         ('Lixiang l9', 70000, 'https://e-n-cars.ru/wp-content/uploads/2023/06/l9-scaled.webp', 1),
         ('EXEED RX', 35000, 'https://rg.ru/uploads/images/2023/07/11/22-2_627.jpg', 1),
         ('Voyah Free',45000,'https://www.gscarbuy.com/images/virtuemart/product/2022-voyah-free-ev-dna-edition.jpg', 1),
-        ('Translation', 1000, 0, 2)
+        ('Translation', 1000, '0', 2)
         '''
     )
     db.commit()
