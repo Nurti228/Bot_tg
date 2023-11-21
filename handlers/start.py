@@ -1,7 +1,12 @@
 from aiogram import F, Router, types
 from aiogram.filters import Command
 from handlers.about_us import about_text
+from db import queries
+
 start_router = Router()
+
+
+
 
 
 @start_router.message(Command("start"))
