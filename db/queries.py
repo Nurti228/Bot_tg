@@ -71,6 +71,18 @@ def get_products():
     return cursor.fetchall()
 
 
+def get_product_by_category_name(cat_name: str):
+    cursor.execute(
+        """
+        SELECT * FROM products WHERE category_id = 
+        (
+            SELECT id FROM category WHERE name = :cat_name
+        )
+        """, {"cat_name": cat_name}
+    )
+    return cursor.fetchall()
+
+
 if __name__ == '__main__':
     init_db()
     create_tables()

@@ -1,6 +1,6 @@
 from aiogram import F, Router, types
 from aiogram.filters import Command
-
+from db.queries import get_product_by_category_name
 shop_router = Router()
 
 
@@ -31,8 +31,9 @@ async def show_cars(message: types.Message):
         ],
         resize_keyboard=True
     )
-
-    await message.answer(f"Cars in our garage", reply_markup=kb_back)
+    products = get_product_by_category_name("Cars")
+    for product in products:
+        await message.answer(f"{product[1]}\nPrice: {product[2]}", reply_markup=kb_back)
 
 
 @shop_router.message(F.text == "Services")
@@ -45,8 +46,9 @@ async def show_cars(message: types.Message):
         ],
         resize_keyboard=True
     )
-
-    await message.answer(f"Services that we provide", reply_markup=kb_back)
+    products = get_product_by_category_name("Services")
+    for product in products:
+        await message.answer(f"{product[1]}\nPrice: {product[2]}", reply_markup=kb_back)
 
 
 @shop_router.message(F.text == "Back to Main Menu")
@@ -63,4 +65,4 @@ async def back_to_main_menu(message: types.Message):
         resize_keyboard=True
     )
 
-    await message.answer(f"Services that we provide", reply_markup=kb_back)
+    await message.answer(f"Main menu", reply_markup=kb_back)
