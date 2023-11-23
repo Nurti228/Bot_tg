@@ -65,7 +65,7 @@ async def process_gender(message: types.Message, state: FSMContext):
     await state.update_data(gender=message.text)
 
     await state.set_state(Questionnaire.fav_brand)
-    await message.answer("What is your favorite car brand")
+    await message.answer("What is your favorite car brand", reply_markup=types.ReplyKeyboardRemove())
 
 
 @questions_router.message(F.text, Questionnaire.fav_brand)
@@ -98,7 +98,7 @@ async def process_fav_body(message: types.Message, state: FSMContext):
     await state.update_data(fav_body=message.text)
 
     await state.set_state(Questionnaire.fav_race)
-    await message.answer("What is your favourite car racing")
+    await message.answer("What is your favourite car racing", reply_markup=types.ReplyKeyboardRemove())
 
 
 @questions_router.message(F.text, Questionnaire.fav_race)
