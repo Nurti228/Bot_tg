@@ -20,6 +20,16 @@ def create_tables():
         DROP TABLE IF EXISTS products
         """
     )
+    # cursor.execute(
+    #     '''
+    #      DROP TABLE IF EXISTS orders
+    #     '''
+    # )
+    cursor.execute(
+        """
+        DROP TABLE IF EXISTS user
+        """
+    )
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS category (
@@ -40,6 +50,24 @@ def create_tables():
         )
         """
     )
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS user (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id TEXT,
+            user_name TEXT
+        )
+        """
+    )
+    # cursor.execute(
+    #     '''
+    #     CREATE TABLE IF NOT EXISTS Orders(
+    #     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    #     user_id INTEGER,
+    #     product_id INTEGER
+    #     )
+    #     '''
+    # )
     db.commit()
 
 
@@ -79,6 +107,32 @@ def get_product_by_category_name(cat_name: str):
             SELECT id FROM category WHERE name = :cat_name
         )
         """, {"cat_name": cat_name}
+    )
+    return cursor.fetchall()
+
+
+def subscribe_user(user_id: str, user_name: str):
+    cursor.execute(
+        '''
+        INSERT INTO user (user_id, user_name) VALUES (?, ?)
+        ''', (user_id, user_name)
+    )
+    db.commit()
+
+
+# def create_order(user_id: int, product_id: int):
+#     cursor.execute(
+#         '''
+#         INSERT INTO Orders (user_id, product_id) VALUES (?, ?)
+#         ''', (user_id, product_id)
+#     )
+#     db.commit()
+
+def get_user_id():
+    cursor.execute(
+        '''
+        SELECT * FROM user
+        '''
     )
     return cursor.fetchall()
 
