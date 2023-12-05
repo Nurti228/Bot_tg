@@ -32,6 +32,11 @@ def create_tables():
     )
     cursor.execute(
         """
+        DROP TABLE IF EXISTS parser
+        """
+    )
+    cursor.execute(
+        """
         CREATE TABLE IF NOT EXISTS category (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT
@@ -68,6 +73,16 @@ def create_tables():
     #     )
     #     '''
     # )
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS parser (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            flat_type TEXT,
+            address TEXT,
+            price TEXT
+        )
+        """
+    )
     db.commit()
 
 
@@ -135,6 +150,15 @@ def get_user_id():
         '''
     )
     return cursor.fetchall()
+
+
+def parser_db(data):
+    cursor.execute(
+        '''
+        INSERT INTO parser (flat_type, address, price) VALUES (:flat_type, :address, :price)
+        ''', data
+    )
+    db.commit()
 
 
 if __name__ == '__main__':

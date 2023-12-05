@@ -2,7 +2,7 @@ import asyncio
 from aiogram.types import BotCommand
 import logging
 from bot import bot, dp, scheduler
-from handlers import (start_router, picture_router, myinfo_router,
+from handlers import (start_router, picture_router, myinfo_router, group_messages_router,
                       shop_router, questions_router, products_router, subscribe_router)
 from db.queries import (init_db, create_tables, populate_tables)
 from handlers.delayed_answer import set_mailing
@@ -13,14 +13,14 @@ async def on_startup(dispatcher):
     create_tables()
     populate_tables()
 
-    scheduler.add_job(set_mailing, 'interval', seconds=3, id='send_mailing', args=(dp,))
-    scheduler.start()
+    # scheduler.add_job(set_mailing, 'interval', seconds=3, id='send_mailing', args=(dp,))
+    # scheduler.start()
 
 
 async def main():
     await bot.set_my_commands([
         BotCommand(command="start", description="Start"),
-        BotCommand(command="picture", description="Show picture"),
+        BotCommand(command="picture", description="Show picture "),
         BotCommand(command="myinfo", description="My information"),
         BotCommand(command="shop", description="Shop"),
         BotCommand(command="questions", description="Small survey about your car preferences"),
@@ -35,6 +35,7 @@ async def main():
     dp.include_router(questions_router)
     dp.include_router(products_router)
     dp.include_router(subscribe_router)
+    dp.include_router(group_messages_router)
 
     dp.startup.register(on_startup)
 
