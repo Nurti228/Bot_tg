@@ -13,8 +13,8 @@ async def on_startup(dispatcher):
     create_tables()
     populate_tables()
 
-    # scheduler.add_job(set_mailing, 'interval', seconds=3, id='send_mailing', args=(dp,))
-    # scheduler.start()
+    scheduler.add_job(set_mailing, 'interval', seconds=3, id='send_mailing', args=(dp,))
+    scheduler.start()
 
 
 async def main():
